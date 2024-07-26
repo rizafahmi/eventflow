@@ -9,6 +9,9 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
+# Contributing
+We appreciate any contribution to Eventflow project. Please read the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information. We ussualy keep a list of features and bugs in the [issue tracker](https://github.com/rizafahmi/eventflow/issues/).
+
 ## Learn more
 
   * Official website: https://www.phoenixframework.org/
