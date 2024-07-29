@@ -9,6 +9,7 @@ https://www.tldraw.com/ro/zhgJTAIRK0eseG4a1ybNf?v=-38,771,1512,858&p=page
 - [x] Mulai bikin modul event
 - [x] Restyling layout
 - [x] Restyling form login & register
+- [x] Redirect after login -> /events (user_auth.ex)
 - [ ] Bikin mockup/desain
 
 
