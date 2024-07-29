@@ -1,0 +1,19 @@
+<.simple_form :let={f} for={@changeset} action={@action}>
+  <.error :if={@changeset.action}>
+    Oops, something went wrong! Please check the errors below.
+  </.error>
+  <.input field={f[:title]} type="text" label="Title" />
+  <.input field={f[:description]} type="textarea" label="Description" />
+  <.input field={f[:datetime]} type="datetime-local" label="Datetime" />
+  <.input field={f[:duration]} type="number" label="Duration (minutes)" />
+  <.input field={f[:location]} type="text" label="Location" />
+  <.input field={f[:is_offline]} type="checkbox" label="Is offline" />
+  <.input field={f[:capacity]} type="number" label="Capacity" />
+  <.input field={f[:tags]} type="text" label="Tags" />
+  <.input field={f[:fee]} type="number" label="Fee" step="any" />
+  <.input field={f[:thumbnail]} type="text" label="Thumbnail" />
+  <.input field={f[:published_at]} type="datetime-local" label="Published at" />
+  <:actions>
+    <.button>Save Event</.button>
+  </:actions>
+</.simple_form>

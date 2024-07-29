@@ -1,0 +1,35 @@
+<.header>
+  Listing Events
+  <:actions>
+    <.link href={~p"/events/new"}>
+      <.button>New Event</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="events" rows={@events} row_click={&JS.navigate(~p"/events/#{&1}")}>
+  <:col :let={event} label="Title"><%= event.title %></:col>
+  <:col :let={event} label="Description"><%= event.description %></:col>
+  <:col :let={event} label="Datetime"><%= event.datetime %></:col>
+  <:col :let={event} label="Duration"><%= event.duration %></:col>
+  <:col :let={event} label="Status"><%= event.status %></:col>
+  <:col :let={event} label="Location"><%= event.location %></:col>
+  <:col :let={event} label="Is offline"><%= event.is_offline %></:col>
+  <:col :let={event} label="Capacity"><%= event.capacity %></:col>
+  <:col :let={event} label="Tags"><%= event.tags %></:col>
+  <:col :let={event} label="Fee"><%= event.fee %></:col>
+  <:col :let={event} label="Thumbnail"><%= event.thumbnail %></:col>
+  <:col :let={event} label="Published at"><%= event.published_at %></:col>
+  <:col :let={event} label="Rsvp"><%= event.rsvp %></:col>
+  <:action :let={event}>
+    <div class="sr-only">
+      <.link navigate={~p"/events/#{event}"}>Show</.link>
+    </div>
+    <.link navigate={~p"/events/#{event}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={event}>
+    <.link href={~p"/events/#{event}"} method="delete" data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>
