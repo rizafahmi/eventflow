@@ -1,26 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" class="[scrollbar-gutter:stable]">
+<html data-theme="light" lang="en" class="[scrollbar-gutter:stable]">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
     <.live_title suffix=" · Phoenix Framework">
-      <%= assigns[:page_title] || "Eventflow" %>
+    <%= assigns[:page_title] || "Eventflow" %>
     </.live_title>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
-  </head>
-  <body class="bg-white">
-    <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
-      <%= if @current_user do %>
-        <li class="text-[0.8125rem] leading-6 text-zinc-900">
+    </head>
+    <body>
+    <div class="navbar bg-base-100">
+    <div class="flex-1">
+    <a class="btn btn-ghost text-xl">EventFlow</a>
+    </div>
+    <div class="flex-none">
+      <ul class="menu menu-horizontal px-1">
+    <%= if @current_user do %>
+        <li class="text-[0.8125rem] leading-6 justify-center mr-4">
           <%= @current_user.email %>
         </li>
         <li>
           <.link
             href={~p"/users/settings"}
-            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            class="text-[0.8125rem] leading-6 font-semibold hover:text-zinc-700"
           >
             Settings
           </.link>
@@ -52,7 +57,9 @@
           </.link>
         </li>
       <% end %>
-    </ul>
+        </ul>
+        </div>
+    </div>
     <%= @inner_content %>
   </body>
 </html>

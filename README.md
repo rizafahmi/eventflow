@@ -6,8 +6,9 @@ https://www.tldraw.com/ro/R9khxSVt2EanAEf4y9x0O?v=-40,-558,1512,858&p=page
 https://www.tldraw.com/ro/zhgJTAIRK0eseG4a1ybNf?v=-38,771,1512,858&p=page
 
 ## TODO
-- [ ] Mulai bikin modul event
-- [ ] Restyling form login & register
+- [x] Mulai bikin modul event
+- [x] Restyling layout
+- [x] Restyling form login & register
 - [ ] Bikin mockup/desain
 
 
