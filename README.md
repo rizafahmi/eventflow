@@ -2,7 +2,6 @@
 
 ## Concept
 
-https://www.tldraw.com/ro/R9khxSVt2EanAEf4y9x0O?v=-40,-558,1512,858&p=page
 https://www.tldraw.com/ro/zhgJTAIRK0eseG4a1ybNf?v=-38,771,1512,858&p=page
 
 ## TODO
@@ -10,6 +9,7 @@ https://www.tldraw.com/ro/zhgJTAIRK0eseG4a1ybNf?v=-38,771,1512,858&p=page
 - [x] Restyling layout
 - [x] Restyling form login & register
 - [x] Redirect after login -> /events (user_auth.ex)
+- [ ] Tambah belongs_to dan has_many di events & users
 - [ ] Bikin mockup/desain landing page
 - [ ] Bikin landing page -> show event list
 
