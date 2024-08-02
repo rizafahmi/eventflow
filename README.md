@@ -5,12 +5,12 @@
 https://www.tldraw.com/ro/R9khxSVt2EanAEf4y9x0O?v=-40,-558,1512,858&p=page
 
 ## TODO
-Mulai bikin modul event
+- [x] Mulai bikin modul event
 - [x] Restyling layout
 - [x] Restyling form login & register
-- [ ] Redirect after login -> /events (user_auth.ex)
-- [ ] Tambah belongs_to dan has_many di events & users
-- [ ] Tambah user_id ketika add event
+- [x] Redirect after login -> /events (user_auth.ex)
+- [x] Tambah `belongs_to` dan `has_many` di events & users
+- [ ] Tambah `user_id` ketika add event
 - [ ] Fitur upload image untuk thumbnail
 - [ ] Perbaiki testing yang masih gagal
 - [ ] Bikin mockup/desain landing page

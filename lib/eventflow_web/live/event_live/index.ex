@@ -6,7 +6,8 @@ defmodule EventflowWeb.EventLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :events, Events.list_events())}
+    user_id = socket.assigns.current_user.id
+    {:ok, stream(socket, :events, Events.list_events(user_id))}
   end
 
   @impl true

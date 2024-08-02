@@ -8,7 +8,21 @@ defmodule Eventflow.EventsTest do
 
     import Eventflow.EventsFixtures
 
-    @invalid_attrs %{capacity: nil, datetime: nil, description: nil, duration: nil, fee: nil, is_offline: nil, location: nil, published_at: nil, rsvp: nil, status: nil, tags: nil, thumbnail: nil, title: nil}
+    @invalid_attrs %{
+      capacity: nil,
+      datetime: nil,
+      description: nil,
+      duration: nil,
+      fee: nil,
+      is_offline: nil,
+      location: nil,
+      published_at: nil,
+      rsvp: nil,
+      status: nil,
+      tags: nil,
+      thumbnail: nil,
+      title: nil
+    }
 
     test "list_events/0 returns all events" do
       event = event_fixture()
@@ -21,7 +35,21 @@ defmodule Eventflow.EventsTest do
     end
 
     test "create_event/1 with valid data creates a event" do
-      valid_attrs = %{capacity: 42, datetime: ~N[2024-08-01 14:16:00], description: "some description", duration: 42, fee: "120.5", is_offline: true, location: "some location", published_at: ~N[2024-08-01 14:16:00], rsvp: true, status: "some status", tags: "some tags", thumbnail: "some thumbnail", title: "some title"}
+      valid_attrs = %{
+        capacity: 42,
+        datetime: ~N[2024-08-01 14:16:00],
+        description: "some description",
+        duration: 42,
+        fee: "120.5",
+        is_offline: true,
+        location: "some location",
+        published_at: ~N[2024-08-01 14:16:00],
+        rsvp: true,
+        status: "some status",
+        tags: "some tags",
+        thumbnail: "some thumbnail",
+        title: "some title"
+      }
 
       assert {:ok, %Event{} = event} = Events.create_event(valid_attrs)
       assert event.capacity == 42
@@ -45,7 +73,22 @@ defmodule Eventflow.EventsTest do
 
     test "update_event/2 with valid data updates the event" do
       event = event_fixture()
-      update_attrs = %{capacity: 43, datetime: ~N[2024-08-02 14:16:00], description: "some updated description", duration: 43, fee: "456.7", is_offline: false, location: "some updated location", published_at: ~N[2024-08-02 14:16:00], rsvp: false, status: "some updated status", tags: "some updated tags", thumbnail: "some updated thumbnail", title: "some updated title"}
+
+      update_attrs = %{
+        capacity: 43,
+        datetime: ~N[2024-08-02 14:16:00],
+        description: "some updated description",
+        duration: 43,
+        fee: "456.7",
+        is_offline: false,
+        location: "some updated location",
+        published_at: ~N[2024-08-02 14:16:00],
+        rsvp: false,
+        status: "some updated status",
+        tags: "some updated tags",
+        thumbnail: "some updated thumbnail",
+        title: "some updated title"
+      }
 
       assert {:ok, %Event{} = event} = Events.update_event(event, update_attrs)
       assert event.capacity == 43

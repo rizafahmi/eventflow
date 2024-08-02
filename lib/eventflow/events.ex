@@ -17,8 +17,11 @@ defmodule Eventflow.Events do
       [%Event{}, ...]
 
   """
-  def list_events do
-    Repo.all(Event)
+  def list_events(user_id) do
+    Repo.all(
+      from e in Event,
+        where: e.user_id == ^user_id
+    )
   end
 
   @doc """

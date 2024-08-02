@@ -355,7 +355,7 @@ defmodule EventflowWeb.CoreComponents do
         id={@id}
         name={@name}
         class={[
-        "textarea w-full",
+          "textarea w-full",
           @errors == [] && "border-zinc-300 focus:border-zinc-400",
           @errors != [] && "border-rose-400 focus:border-rose-400"
         ]}
