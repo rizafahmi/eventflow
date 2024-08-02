@@ -26,7 +26,7 @@ defmodule Eventflow.Events.Event do
   @doc false
   def changeset(event, attrs) do
     event
-    |> cast(attrs, [:title, :description, :datetime, :duration, :status, :location, :is_offline, :capacity, :tags, :fee, :thumbnail, :published_at, :rsvp])
-    |> validate_required([:title, :description, :datetime, :duration, :status, :location, :is_offline, :capacity, :fee, :published_at])
+    |> cast(attrs, [:title, :description, :datetime, :duration, :status, :location, :is_offline, :capacity, :tags, :fee, :thumbnail, :published_at, :rsvp, :user_id])
+    |> validate_required([:title, :description, :datetime, :duration, :status, :location, :is_offline, :capacity, :fee, :user_id])
   end
 end

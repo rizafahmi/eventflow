@@ -5,7 +5,8 @@ defmodule EventflowWeb.EventController do
   alias Eventflow.Events.Event
 
   def index(conn, _params) do
-    events = Events.list_events()
+    user_id = conn.assigns.current_user.id
+    events = Events.list_events(user_id)
     render(conn, :index, events: events)
   end
 
@@ -15,7 +16,8 @@ defmodule EventflowWeb.EventController do
   end
 
   def create(conn, %{"event" => event_params}) do
-    case Events.create_event(event_params) do
+    params = Map.put(event_params, "user_id", conn.assigns.current_user.id)
+    case Events.create_event(params) do
       {:ok, event} ->
         conn
         |> put_flash(:info, "Event created successfully.")
