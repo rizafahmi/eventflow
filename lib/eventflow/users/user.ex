@@ -9,6 +9,8 @@ defmodule Eventflow.Users.User do
     field :current_password, :string, virtual: true, redact: true
     field :confirmed_at, :utc_datetime
 
+    has_many :events, Eventflow.Events.Event
+
     timestamps(type: :utc_datetime)
   end
 

@@ -16,7 +16,9 @@ defmodule Eventflow.Events.Event do
     field :tags, :string
     field :thumbnail, :string
     field :title, :string
-    field :user_id, :id
+    # field :user_id, :id
+
+    belongs_to :user, Eventflow.Users.User
 
     timestamps(type: :utc_datetime)
   end
