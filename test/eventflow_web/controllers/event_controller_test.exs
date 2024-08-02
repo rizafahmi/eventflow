@@ -3,9 +3,51 @@ defmodule EventflowWeb.EventControllerTest do
 
   import Eventflow.EventsFixtures
 
-  @create_attrs %{capacity: 42, datetime: ~N[2024-07-28 13:40:00], description: "some description", duration: 42, fee: "120.5", is_offline: true, location: "some location", published_at: ~N[2024-07-28 13:40:00], rsvp: true, status: "some status", tags: "some tags", thumbnail: "some thumbnail", title: "some title"}
-  @update_attrs %{capacity: 43, datetime: ~N[2024-07-29 13:40:00], description: "some updated description", duration: 43, fee: "456.7", is_offline: false, location: "some updated location", published_at: ~N[2024-07-29 13:40:00], rsvp: false, status: "some updated status", tags: "some updated tags", thumbnail: "some updated thumbnail", title: "some updated title"}
-  @invalid_attrs %{capacity: nil, datetime: nil, description: nil, duration: nil, fee: nil, is_offline: nil, location: nil, published_at: nil, rsvp: nil, status: nil, tags: nil, thumbnail: nil, title: nil}
+  @create_attrs %{
+    capacity: 42,
+    datetime: ~N[2024-07-28 13:40:00],
+    description: "some description",
+    duration: 42,
+    fee: "120.5",
+    is_offline: true,
+    location: "some location",
+    published_at: ~N[2024-07-28 13:40:00],
+    rsvp: true,
+    status: "some status",
+    tags: "some tags",
+    thumbnail: "some thumbnail",
+    title: "some title"
+  }
+  @update_attrs %{
+    capacity: 43,
+    datetime: ~N[2024-07-29 13:40:00],
+    description: "some updated description",
+    duration: 43,
+    fee: "456.7",
+    is_offline: false,
+    location: "some updated location",
+    published_at: ~N[2024-07-29 13:40:00],
+    rsvp: false,
+    status: "some updated status",
+    tags: "some updated tags",
+    thumbnail: "some updated thumbnail",
+    title: "some updated title"
+  }
+  @invalid_attrs %{
+    capacity: nil,
+    datetime: nil,
+    description: nil,
+    duration: nil,
+    fee: nil,
+    is_offline: nil,
+    location: nil,
+    published_at: nil,
+    rsvp: nil,
+    status: nil,
+    tags: nil,
+    thumbnail: nil,
+    title: nil
+  }
 
   describe "index" do
     test "lists all events", %{conn: conn} do

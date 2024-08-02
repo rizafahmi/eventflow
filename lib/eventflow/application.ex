@@ -11,8 +11,7 @@ defmodule Eventflow.Application do
       EventflowWeb.Telemetry,
       Eventflow.Repo,
       {Ecto.Migrator,
-        repos: Application.fetch_env!(:eventflow, :ecto_repos),
-        skip: skip_migrations?()},
+       repos: Application.fetch_env!(:eventflow, :ecto_repos), skip: skip_migrations?()},
       {DNSCluster, query: Application.get_env(:eventflow, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Eventflow.PubSub},
       # Start the Finch HTTP client for sending emails

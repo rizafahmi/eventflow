@@ -1,4 +1,4 @@
-<.simple_form :let={f} for={@changeset} action={@action}>
+<.simple_form :let={f} for={@changeset} action={@action} multipart>
   <.error :if={@changeset.action}>
     Oops, something went wrong! Please check the errors below.
   </.error>
@@ -11,7 +11,7 @@
   <.input field={f[:capacity]} type="number" label="Capacity" />
   <.input field={f[:tags]} type="text" label="Tags" />
   <.input field={f[:fee]} type="number" label="Fee" step="any" />
-  <.input field={f[:thumbnail]} type="text" label="Thumbnail" />
+  <!-- <.input field={f[:thumbnail]} type="file" label="Thumbnail" /> -->
   <.input field={f[:published_at]} type="datetime-local" label="Published at" />
   <:actions>
     <.button>Save Event</.button>

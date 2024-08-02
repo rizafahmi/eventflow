@@ -17,6 +17,15 @@ defmodule EventflowWeb.EventController do
 
   def create(conn, %{"event" => event_params}) do
     params = Map.put(event_params, "user_id", conn.assigns.current_user.id)
+
+    if thumbnail = event_params["thumbnail"] do
+      extension = Path.extname(thumbnail.filename)
+      filename = "#{event_params["title"]}#{extension}"
+      File.cp(thumbnail.path, "priv/static/uploads/#{filename}")
+      params = Map.put(event_params, "thumbnail", filename)
+      Map.delete(event_params, "thumbnail")
+    end
+
     case Events.create_event(params) do
       {:ok, event} ->
         conn
