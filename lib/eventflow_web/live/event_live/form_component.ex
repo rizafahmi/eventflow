@@ -29,6 +29,17 @@ defmodule EventflowWeb.EventLive.FormComponent do
         <.input field={@form[:capacity]} type="number" label="Capacity" />
         <.input field={@form[:tags]} type="text" label="Tags" />
         <.input field={@form[:fee]} type="number" label="Fee" step="any" />
+        <.live_file_input upload={@uploads.avatar} />
+        <%= for entry <- @uploads.avatar.entries do %>
+        <article class="upload-entry">
+            <figure>
+                <.live_img_preview entry={entry} />
+            </figure>
+            <button phx-click="cancel-upload" phx-value-ref={entry.ref}>
+                Cancel
+            </button>
+        </article>
+        <% end %>
         <.input field={@form[:thumbnail]} type="text" label="Thumbnail" />
         <.input field={@form[:published_at]} type="datetime-local" label="Published at" />
         <.input field={@form[:rsvp]} type="checkbox" label="Rsvp" />
@@ -42,12 +53,16 @@ defmodule EventflowWeb.EventLive.FormComponent do
 
   @impl true
   def update(%{event: event} = assigns, socket) do
-    {:ok,
-     socket
+    socket =
+      socket
      |> assign(assigns)
      |> assign_new(:form, fn ->
        to_form(Events.change_event(event))
-     end)}
+     end)
+      |> assign(:uploaded_files, [])
+      |> allow_upload(:avatar, accept: ~w(.jpg .jpeg .webp .png), max_entries: 1)
+
+    {:ok, socket}
   end
 
   @impl true
@@ -56,12 +71,25 @@ defmodule EventflowWeb.EventLive.FormComponent do
     {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
   end
 
-  def handle_event("save", %{"event" => event_params}, socket) do
-    params =
+  def handle_event("save", %{"event" => event_params} = params, socket) do
+    dbg params
+    event_params =
       event_params
       |> Map.put("user_id", socket.assigns.current_user.id)
 
-    save_event(socket, socket.assigns.action, params)
+    uploaded_files =
+    consume_uploaded_entries(socket, :avatar, fn %{path: path}, _entry ->
+      dest = Path.join(Application.app_dir(:eventflow, "priv/static/uploads"), Path.basename(path))
+      dbg dest
+      File.cp!(path, dest)
+      {:ok, ~p"/uploads/#{Path.basename(dest)}"}
+    end)
+
+    socket =
+    socket
+    |> update(:uploaded_files, &(&1 ++ uploaded_files))
+
+    save_event(socket, socket.assigns.action, event_params)
   end
 
   defp save_event(socket, :edit, event_params) do
@@ -80,6 +108,7 @@ defmodule EventflowWeb.EventLive.FormComponent do
   end
 
   defp save_event(socket, :new, event_params) do
+    dbg socket.assigns
     case Events.create_event(event_params) do
       {:ok, event} ->
         notify_parent({:saved, event})

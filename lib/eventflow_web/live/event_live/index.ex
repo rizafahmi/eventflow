@@ -7,6 +7,10 @@ defmodule EventflowWeb.EventLive.Index do
   @impl true
   def mount(_params, _session, socket) do
     user_id = socket.assigns.current_user.id
+    socket =
+      socket
+      |> assign(:uploaded_files, [])
+      |> allow_upload(:avatar, accept: ~w(.jpg .jpeg .webp .png), max_entries: 1)
 
     {:ok, stream(socket, :events, Events.list_events(user_id))}
   end
