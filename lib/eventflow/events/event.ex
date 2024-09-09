@@ -38,7 +38,8 @@ defmodule Eventflow.Events.Event do
       :fee,
       :thumbnail,
       :published_at,
-      :rsvp
+      :rsvp,
+      :user_id
     ])
     |> validate_required([
       :title,

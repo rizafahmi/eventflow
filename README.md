@@ -10,7 +10,7 @@ https://www.tldraw.com/ro/R9khxSVt2EanAEf4y9x0O?v=-40,-558,1512,858&p=page
 - [x] Restyling form login & register
 - [x] Redirect after login -> /events (user_auth.ex)
 - [x] Tambah `belongs_to` dan `has_many` di events & users
-- [ ] Tambah `user_id` ketika add event
+- [x] Tambah `user_id` ketika add event
 - [ ] Fitur upload image untuk thumbnail
 - [ ] Perbaiki testing yang masih gagal
 - [ ] Bikin mockup/desain landing page

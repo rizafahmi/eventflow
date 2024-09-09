@@ -57,9 +57,9 @@ defmodule EventflowWeb.EventLive.FormComponent do
   end
 
   def handle_event("save", %{"event" => event_params}, socket) do
-    dbg socket
-    params = event_params
-    |> Map.put("user_id", socket.assigns.current_user.id)
+    params =
+      event_params
+      |> Map.put("user_id", socket.assigns.current_user.id)
 
     save_event(socket, socket.assigns.action, params)
   end
@@ -80,7 +80,6 @@ defmodule EventflowWeb.EventLive.FormComponent do
   end
 
   defp save_event(socket, :new, event_params) do
-
     case Events.create_event(event_params) do
       {:ok, event} ->
         notify_parent({:saved, event})
