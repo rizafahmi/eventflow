@@ -19,7 +19,7 @@
   <:item title="Capacity"><%= @event.capacity %></:item>
   <:item title="Tags"><%= @event.tags %></:item>
   <:item title="Fee"><%= @event.fee %></:item>
-  <:item title="Thumbnail"><%= @event.thumbnail %></:item>
+  <:item title="Thumbnail"><%= if @event.thumbnail do %><img src={@event.thumbnail} alt="poster" /><% end %></:item>
   <:item title="Published at"><%= @event.published_at %></:item>
   <:item title="Rsvp"><%= @event.rsvp %></:item>
 </.list>

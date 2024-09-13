@@ -10,7 +10,7 @@ defmodule EventflowWeb.EventLive.Index do
     socket =
       socket
       |> assign(:uploaded_files, [])
-      |> allow_upload(:avatar, accept: ~w(.jpg .jpeg .webp .png), max_entries: 1)
+      |> allow_upload(:poster, accept: ~w(.jpg .jpeg .webp .png), max_entries: 1)
 
     {:ok, stream(socket, :events, Events.list_events(user_id))}
   end

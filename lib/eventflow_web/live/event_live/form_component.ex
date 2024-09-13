@@ -29,8 +29,12 @@ defmodule EventflowWeb.EventLive.FormComponent do
         <.input field={@form[:capacity]} type="number" label="Capacity" />
         <.input field={@form[:tags]} type="text" label="Tags" />
         <.input field={@form[:fee]} type="number" label="Fee" step="any" />
-        <.live_file_input upload={@uploads.avatar} />
-        <%= for entry <- @uploads.avatar.entries do %>
+        <label for="event_thumbnail" class="block text-sm font-semibold leading-6 text-zinc-800">Thumbnail</label>
+        <%= if @form[:thumbnail].value do %>
+          <img src={@form[:thumbnail].value} alt="Thumbnail" class="w-32" />
+        <% end %>
+        <.live_file_input upload={@uploads.poster} />
+        <%= for entry <- @uploads.poster.entries do %>
         <article class="upload-entry">
             <figure>
                 <.live_img_preview entry={entry} />
@@ -40,7 +44,6 @@ defmodule EventflowWeb.EventLive.FormComponent do
             </button>
         </article>
         <% end %>
-        <.input field={@form[:thumbnail]} type="text" label="Thumbnail" />
         <.input field={@form[:published_at]} type="datetime-local" label="Published at" />
         <.input field={@form[:rsvp]} type="checkbox" label="Rsvp" />
         <:actions>
@@ -60,7 +63,7 @@ defmodule EventflowWeb.EventLive.FormComponent do
        to_form(Events.change_event(event))
      end)
       |> assign(:uploaded_files, [])
-      |> allow_upload(:avatar, accept: ~w(.jpg .jpeg .webp .png), max_entries: 1)
+      |> allow_upload(:poster, accept: ~w(.jpg .jpeg .webp .png), max_entries: 1)
 
     {:ok, socket}
   end
@@ -71,16 +74,19 @@ defmodule EventflowWeb.EventLive.FormComponent do
     {:noreply, assign(socket, form: to_form(changeset, action: :validate))}
   end
 
-  def handle_event("save", %{"event" => event_params} = params, socket) do
-    dbg params
-    event_params =
-      event_params
-      |> Map.put("user_id", socket.assigns.current_user.id)
+  def handle_event("save", %{"event" => event_params}, socket) do
+    case socket.assigns.event.user_id do
+      nil -> event_params =
+          event_params
+          |> Map.put("user_id", socket.assigns.current_user.id)
+
+      _ -> event_params
+
+    end
 
     uploaded_files =
-    consume_uploaded_entries(socket, :avatar, fn %{path: path}, _entry ->
-      dest = Path.join(Application.app_dir(:eventflow, "priv/static/uploads"), Path.basename(path))
-      dbg dest
+    consume_uploaded_entries(socket, :poster, fn %{path: path}, entry ->
+      dest = Path.join(Application.app_dir(:eventflow, "priv/static/uploads"), Path.basename(entry.client_name))
       File.cp!(path, dest)
       {:ok, ~p"/uploads/#{Path.basename(dest)}"}
     end)
@@ -93,7 +99,8 @@ defmodule EventflowWeb.EventLive.FormComponent do
   end
 
   defp save_event(socket, :edit, event_params) do
-    case Events.update_event(socket.assigns.event, event_params) do
+    params = Map.put(event_params, "thumbnail", hd(socket.assigns.uploaded_files))
+    case Events.update_event(socket.assigns.event, params) do
       {:ok, event} ->
         notify_parent({:saved, event})
 
@@ -108,8 +115,8 @@ defmodule EventflowWeb.EventLive.FormComponent do
   end
 
   defp save_event(socket, :new, event_params) do
-    dbg socket.assigns
-    case Events.create_event(event_params) do
+    params = Map.put(event_params, "thumbnail", hd(socket.assigns.uploaded_files))
+    case Events.create_event(params) do
       {:ok, event} ->
         notify_parent({:saved, event})
 

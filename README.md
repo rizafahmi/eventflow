@@ -1,5 +1,7 @@
 # Eventflow
 
+Event management build with Elixir, Phoenix and DaisyUI.
+
 ## Concept
 
 https://www.tldraw.com/ro/R9khxSVt2EanAEf4y9x0O?v=-40,-558,1512,858&p=page
@@ -11,9 +13,11 @@ https://www.tldraw.com/ro/R9khxSVt2EanAEf4y9x0O?v=-40,-558,1512,858&p=page
 - [x] Redirect after login -> /events (user_auth.ex)
 - [x] Tambah `belongs_to` dan `has_many` di events & users
 - [x] Tambah `user_id` ketika add event
-- [ ] Fitur upload image untuk thumbnail
-    - Rename file upload menjadi -> title.[extension]
-    - Simpan uploaded_files -> field thumbnail di file form_component.ex fungsi save_event :new
+- [x] Fitur upload image untuk thumbnail
+    - [x] Rename file upload menjadi -> original name
+    - [x] Simpan uploaded_files -> field thumbnail di file form_component.ex fungsi save_event :new
+    - [x] Ganti upload :avatar menjadi :thumbnail
+    - [x] Edit thumbnail
 - [ ] Perbaiki testing yang masih gagal
 - [ ] Bikin mockup/desain landing page
 - [ ] Bikin landing page -> show event list
