@@ -76,7 +76,7 @@ defmodule EventflowWeb.EventLive.FormComponent do
 
   def handle_event("save", %{"event" => event_params}, socket) do
     case socket.assigns.event.user_id do
-      nil -> event_params =
+      nil -> ^event_params =
           event_params
           |> Map.put("user_id", socket.assigns.current_user.id)
 
