@@ -22,7 +22,7 @@ https://www.tldraw.com/ro/R9khxSVt2EanAEf4y9x0O?v=-40,-558,1512,858&p=page
   - [x] Edit thumbnail
 - [x] Bikin mockup/desain landing page
 - [x] Bikin landing page -> show event list
-- [ ] Bikin detail page
+- [o] Bikin detail page
 - [ ] Dibuat beda layout dengan admin site
 - [ ] Perbaiki testing yang masih gagal (13 error lagi)
 

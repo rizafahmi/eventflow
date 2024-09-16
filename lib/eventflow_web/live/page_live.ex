@@ -33,7 +33,7 @@ defmodule EventflowWeb.PageLive do
           <h2 class="card-title"><%= event.title %></h2>
           <p><%= event.description %></p>
           <div class="card-actions justify-end">
-            <button class="btn btn-primary">Detail</button>
+            <a href={~p"/events/#{event.id}"} class="btn btn-primary">Detail</a>
           </div>
         </div>
       </div>
