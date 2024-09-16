@@ -1,7 +1,7 @@
 <.header>
   Listing Events
   <:actions>
-    <.link patch={~p"/events/new"}>
+    <.link patch={~p"/admin/events/new"}>
       <.button>New Event</.button>
     </.link>
   </:actions>
@@ -10,7 +10,7 @@
 <.table
   id="events"
   rows={@streams.events}
-  row_click={fn {_id, event} -> JS.navigate(~p"/events/#{event}") end}
+  row_click={fn {_id, event} -> JS.navigate(~p"/admin/events/#{event}") end}
 >
   <:col :let={{_id, event}} label="Title"><%= event.title %></:col>
   <:col :let={{_id, event}} label="Description"><%= event.description %></:col>
@@ -27,9 +27,9 @@
   <:col :let={{_id, event}} label="Rsvp"><%= event.rsvp %></:col>
   <:action :let={{_id, event}}>
     <div class="sr-only">
-      <.link navigate={~p"/events/#{event}"}>Show</.link>
+      <.link navigate={~p"/admin/events/#{event}"}>Show</.link>
     </div>
-    <.link patch={~p"/events/#{event}/edit"}>Edit</.link>
+    <.link patch={~p"/admin/events/#{event}/edit"}>Edit</.link>
   </:action>
   <:action :let={{id, event}}>
     <.link
@@ -45,7 +45,7 @@
   :if={@live_action in [:new, :edit]}
   id="event-modal"
   show
-  on_cancel={JS.patch(~p"/events")}
+  on_cancel={JS.patch(~p"/admin/events")}
 >
   <.live_component
     module={EventflowWeb.EventLive.FormComponent}
@@ -53,7 +53,7 @@
     title={@page_title}
     action={@live_action}
     event={@event}
-    patch={~p"/events"}
+    patch={~p"/admin/events"}
     current_user={@current_user}
   />
 </.modal>

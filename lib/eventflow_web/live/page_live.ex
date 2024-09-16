@@ -23,7 +23,7 @@ defmodule EventflowWeb.PageLive do
         </div>
       </div>
     </div>
-    <h2 class="text-3xl font-bold py-6">Current Events</h2>
+    <h2 class="text-3xl font-bold py-6">Latest Events</h2>
     <div id="events" class="flex flex-wrap gap-5 justify-center">
       <div :for={event <- @events} class="card card-compact bg-base-100 w-96 shadow-xl">
         <figure>

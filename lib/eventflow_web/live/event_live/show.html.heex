@@ -2,7 +2,7 @@
   Event <%= @event.id %>
   <:subtitle>This is a event record from your database.</:subtitle>
   <:actions>
-    <.link patch={~p"/events/#{@event}/show/edit"} phx-click={JS.push_focus()}>
+    <.link patch={~p"/admin/events/#{@event}/show/edit"} phx-click={JS.push_focus()}>
       <.button>Edit event</.button>
     </.link>
   </:actions>
@@ -24,13 +24,13 @@
   <:item title="Rsvp"><%= @event.rsvp %></:item>
 </.list>
 
-<.back navigate={~p"/events"}>Back to events</.back>
+<.back navigate={~p"/admin/events"}>Back to events</.back>
 
 <.modal
   :if={@live_action == :edit}
   id="event-modal"
   show
-  on_cancel={JS.patch(~p"/events/#{@event}")}
+  on_cancel={JS.patch(~p"/admin/events/#{@event}")}
 >
   <.live_component
     module={EventflowWeb.EventLive.FormComponent}
@@ -38,6 +38,6 @@
     title={@page_title}
     action={@live_action}
     event={@event}
-    patch={~p"/events/#{@event}"}
+    patch={~p"/admin/events/#{@event}"}
   />
 </.modal>
