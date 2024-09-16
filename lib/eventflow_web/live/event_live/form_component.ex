@@ -20,7 +20,7 @@ defmodule EventflowWeb.EventLive.FormComponent do
         phx-submit="save"
       >
         <.input field={@form[:title]} type="text" label="Title" />
-        <.input field={@form[:description]} type="text" label="Description" />
+        <.input field={@form[:description]} type="textarea" label="Description" />
         <.input field={@form[:datetime]} type="datetime-local" label="Datetime" />
         <.input field={@form[:duration]} type="number" label="Duration" />
         <.input field={@form[:status]} type="text" label="Status" />
@@ -29,20 +29,22 @@ defmodule EventflowWeb.EventLive.FormComponent do
         <.input field={@form[:capacity]} type="number" label="Capacity" />
         <.input field={@form[:tags]} type="text" label="Tags" />
         <.input field={@form[:fee]} type="number" label="Fee" step="any" />
-        <label for="event_thumbnail" class="block text-sm font-semibold leading-6 text-zinc-800">Thumbnail</label>
+        <label for="event_thumbnail" class="block text-sm font-semibold leading-6 text-zinc-800">
+          Thumbnail
+        </label>
         <%= if @form[:thumbnail].value do %>
           <img src={@form[:thumbnail].value} alt="Thumbnail" class="w-32" />
         <% end %>
         <.live_file_input upload={@uploads.poster} />
         <%= for entry <- @uploads.poster.entries do %>
-        <article class="upload-entry">
+          <article class="upload-entry">
             <figure>
-                <.live_img_preview entry={entry} />
+              <.live_img_preview entry={entry} />
             </figure>
             <button phx-click="cancel-upload" phx-value-ref={entry.ref}>
-                Cancel
+              Cancel
             </button>
-        </article>
+          </article>
         <% end %>
         <.input field={@form[:published_at]} type="datetime-local" label="Published at" />
         <.input field={@form[:rsvp]} type="checkbox" label="Rsvp" />
@@ -58,10 +60,10 @@ defmodule EventflowWeb.EventLive.FormComponent do
   def update(%{event: event} = assigns, socket) do
     socket =
       socket
-     |> assign(assigns)
-     |> assign_new(:form, fn ->
-       to_form(Events.change_event(event))
-     end)
+      |> assign(assigns)
+      |> assign_new(:form, fn ->
+        to_form(Events.change_event(event))
+      end)
       |> assign(:uploaded_files, [])
       |> allow_upload(:poster, accept: ~w(.jpg .jpeg .webp .png), max_entries: 1)
 
@@ -76,30 +78,41 @@ defmodule EventflowWeb.EventLive.FormComponent do
 
   def handle_event("save", %{"event" => event_params}, socket) do
     case socket.assigns.event.user_id do
-      nil -> ^event_params =
+      nil ->
+        ^event_params =
           event_params
           |> Map.put("user_id", socket.assigns.current_user.id)
 
-      _ -> event_params
-
+      _ ->
+        event_params
     end
 
     uploaded_files =
-    consume_uploaded_entries(socket, :poster, fn %{path: path}, entry ->
-      dest = Path.join(Application.app_dir(:eventflow, "priv/static/uploads"), Path.basename(entry.client_name))
-      File.cp!(path, dest)
-      {:ok, ~p"/uploads/#{Path.basename(dest)}"}
-    end)
+      consume_uploaded_entries(socket, :poster, fn %{path: path}, entry ->
+        dest =
+          Path.join(
+            Application.app_dir(:eventflow, "priv/static/uploads"),
+            Path.basename(entry.client_name)
+          )
+
+        File.cp!(path, dest)
+        {:ok, ~p"/uploads/#{Path.basename(dest)}"}
+      end)
 
     socket =
-    socket
-    |> update(:uploaded_files, &(&1 ++ uploaded_files))
+      socket
+      |> update(:uploaded_files, &(&1 ++ uploaded_files))
 
     save_event(socket, socket.assigns.action, event_params)
   end
 
   defp save_event(socket, :edit, event_params) do
-    params = Map.put(event_params, "thumbnail", hd(socket.assigns.uploaded_files))
+    params =
+      case List.first(socket.assigns.uploaded_files) do
+        nil -> event_params
+        thumbnail -> Map.put(event_params, "thumbnail", thumbnail)
+      end
+
     case Events.update_event(socket.assigns.event, params) do
       {:ok, event} ->
         notify_parent({:saved, event})
@@ -116,6 +129,7 @@ defmodule EventflowWeb.EventLive.FormComponent do
 
   defp save_event(socket, :new, event_params) do
     params = Map.put(event_params, "thumbnail", hd(socket.assigns.uploaded_files))
+
     case Events.create_event(params) do
       {:ok, event} ->
         notify_parent({:saved, event})
