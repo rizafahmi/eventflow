@@ -22,9 +22,19 @@ defmodule EventflowWeb.EventDetailLive do
       </div>
       <div id="title" class="">
         <h2 class="text-3xl font-bold"><%= @event.title %></h2>
-        <div id="datetime"><span role="img">📅</span> <%= @event.datetime %></div>
+        <div id="datetime">
+          <span role="img">📅</span> <%= @event.datetime %> (<%= @event.duration %> hour)
+        </div>
         <div id="location"><span role="img">📍</span> <%= @event.location %></div>
+        <div id="capacity"><span role="img">✌🏼</span> <%= @event.capacity %></div>
+        <%= if Decimal.to_integer(@event.fee) > 0 do %>
+          <div id="fee"><span role="img">💸</span> <%= @event.fee %></div>
+        <% end %>
         <p><%= @event.description %></p>
+      </div>
+      <div id="actions" class="">
+        <.link navigate={~p"/events/#{@event.id}/rsvp"} class="btn btn-primary">RSVP</.link>
+        <.link navigate="/" class="btn">Back</.link>
       </div>
     </div>
     """

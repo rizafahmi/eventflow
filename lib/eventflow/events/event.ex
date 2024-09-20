@@ -55,5 +55,6 @@ defmodule Eventflow.Events.Event do
       :rsvp,
       :user_id
     ])
+    |> validate_length(:description, min: 10, max: 4000)
   end
 end
