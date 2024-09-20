@@ -17,7 +17,7 @@ defmodule EventflowWeb.UserRegistrationLiveTest do
         conn
         |> log_in_user(user_fixture())
         |> live(~p"/users/register")
-        |> follow_redirect(conn, "/events")
+        |> follow_redirect(conn, "/admin/events")
 
       assert {:ok, _conn} = result
     end
@@ -45,7 +45,7 @@ defmodule EventflowWeb.UserRegistrationLiveTest do
       render_submit(form)
       conn = follow_trigger_action(form, conn)
 
-      assert redirected_to(conn) == ~p"/events"
+      assert redirected_to(conn) == ~p"/admin/events"
 
       # Now do a logged in request and assert on the menu
       conn = get(conn, "/")

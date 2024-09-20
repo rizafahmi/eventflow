@@ -18,7 +18,7 @@ defmodule EventflowWeb.UserLoginLiveTest do
         conn
         |> log_in_user(user_fixture())
         |> live(~p"/users/log_in")
-        |> follow_redirect(conn, "/events")
+        |> follow_redirect(conn, "/admin/events")
 
       assert {:ok, _conn} = result
     end
@@ -36,7 +36,7 @@ defmodule EventflowWeb.UserLoginLiveTest do
 
       conn = submit_form(form, conn)
 
-      assert redirected_to(conn) == ~p"/events"
+      assert redirected_to(conn) == ~p"/admin/events"
     end
 
     test "redirects to login page with a flash error if there are no valid credentials", %{
