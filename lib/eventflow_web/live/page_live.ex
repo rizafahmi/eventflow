@@ -3,7 +3,7 @@ defmodule EventflowWeb.PageLive do
 
   @impl true
   def mount(_params, _session, socket) do
-    events = Eventflow.Events.list_events()
+    events = Eventflow.Events.list_future_events()
 
     socket =
       socket
@@ -31,7 +31,12 @@ defmodule EventflowWeb.PageLive do
         </figure>
         <div class="card-body">
           <h2 class="card-title"><%= event.title %></h2>
-          <p><%= event.description %></p>
+          <div id="datetime" class=""><span role="img">🕒</span> <%= event.datetime %></div>
+          <div id="location" class=""><span role="img">📍</span> <%= event.location %></div>
+          <%= if Decimal.to_integer(event.fee) > 0 do %>
+            <div id="fee"><span role="img">💸</span> <%= event.fee %></div>
+          <% end %>
+          <p><%= String.slice(event.description, 0..400) %>...</p>
           <div class="card-actions justify-end">
             <a href={~p"/events/#{event.id}"} class="btn btn-primary">Detail</a>
           </div>

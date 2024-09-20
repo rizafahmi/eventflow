@@ -21,6 +21,10 @@ defmodule Eventflow.Events do
     Repo.all(Event)
   end
 
+  def list_future_events() do
+    Repo.all(from e in Event, where: e.status == :published)
+  end
+
   def list_events(user_id) do
     Repo.all(
       from e in Event,

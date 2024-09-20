@@ -21,13 +21,12 @@ https://www.tldraw.com/ro/R9khxSVt2EanAEf4y9x0O?v=-40,-558,1512,858&p=page
   - [x] Ganti upload :avatar menjadi :thumbnail
   - [x] Edit thumbnail
 - [x] Bikin mockup/desain landing page
-- [ ] Change description from string to text
-- [ ] Add migration for description changes
 - [x] Bikin detail page
-- [ ] RSVP page
 - [x] Bikin landing page -> show event list
-  - [ ] Informasi lain di landing page seperti tanggal, lokasi
-  - [ ] Event yang sudah expired tidak perlu ditampilkan
+  - [x] Informasi lain di landing page seperti tanggal, lokasi
+  - [x] Event yang sudah expired tidak perlu ditampilkan
+- [ ] status is enum [:draft, :pre_event, :on_event, :finished_event, :published], default is :pre_event
+- [ ] RSVP page
 - [ ] Dibuat beda layout dengan admin site
 - [ ] Perbaiki testing yang masih gagal (13 error lagi)
 - [ ] Login/register end user using modal

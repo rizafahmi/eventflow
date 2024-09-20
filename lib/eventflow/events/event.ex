@@ -12,7 +12,11 @@ defmodule Eventflow.Events.Event do
     field :location, :string
     field :published_at, :naive_datetime
     field :rsvp, :boolean, default: false
-    field :status, :string
+
+    field :status, Ecto.Enum,
+      values: [:draft, :pre_event, :on_event, :finished_event, :published],
+      default: :pre_event
+
     field :tags, :string
     field :thumbnail, :string
     field :title, :string
