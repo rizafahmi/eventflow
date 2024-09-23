@@ -27,7 +27,8 @@ https://www.tldraw.com/ro/R9khxSVt2EanAEf4y9x0O?v=-40,-558,1512,858&p=page
   - [x] Event yang sudah expired tidak perlu ditampilkan
 - [x] status is enum [:draft, :pre_event, :on_event, :finished_event, :published], default is :pre_event
 - [x] Design detail event page
-- [ ] RSVP page
+- [x] RSVP page
+  - [ ] RSVP logic
 - [ ] Dibuat beda layout dengan admin site
 - [ ] Perbaiki testing yang masih gagal (19 error lagi)
 - [ ] Login/register end user using modal
