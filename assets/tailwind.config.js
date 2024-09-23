@@ -19,6 +19,7 @@ module.exports = {
     },
   },
   plugins: [
+    require("@tailwindcss/typography"),
     require("daisyui"),
     // require("@tailwindcss/forms"),
     // Allows prefixing tailwind classes with LiveView classes to add rules

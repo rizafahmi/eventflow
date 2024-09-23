@@ -25,14 +25,16 @@ https://www.tldraw.com/ro/R9khxSVt2EanAEf4y9x0O?v=-40,-558,1512,858&p=page
 - [x] Bikin landing page -> show event list
   - [x] Informasi lain di landing page seperti tanggal, lokasi
   - [x] Event yang sudah expired tidak perlu ditampilkan
-- [ ] status is enum [:draft, :pre_event, :on_event, :finished_event, :published], default is :pre_event
+- [x] status is enum [:draft, :pre_event, :on_event, :finished_event, :published], default is :pre_event
+- [x] Design detail event page
 - [ ] RSVP page
 - [ ] Dibuat beda layout dengan admin site
-- [ ] Perbaiki testing yang masih gagal (13 error lagi)
+- [ ] Perbaiki testing yang masih gagal (19 error lagi)
 - [ ] Login/register end user using modal
 - [ ] Add event slug
 - [ ] Remove rsvp from event because rsvp per user
 - [ ] `published_at` by default is `now`
+- [ ] Change description to markdown format
 
 ## Getting Started
 
@@ -44,6 +46,11 @@ To start your Phoenix server:
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+
+## Future Development
+
+- Using phoenix presence in detail page
+- Send email to user after rsvp
 
 # Contributing
 

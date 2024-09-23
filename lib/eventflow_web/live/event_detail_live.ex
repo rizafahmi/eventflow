@@ -12,29 +12,32 @@ defmodule EventflowWeb.EventDetailLive do
     {:ok, socket}
   end
 
+  @impl true
   def render(assigns) do
     ~H"""
-    <div id="event-detail" class="flex flex-col gap-6">
-      <div id="poster" class="">
+    <div class="flex justify-center">
+      <div class="card card-compact bg-base-100 w-9/12 shadow-xl">
         <figure>
-          <img src={@event.thumbnail} alt={@event.title} />
+          <img src={@event.thumbnail} alt={@event.title} class="w-full object-cover" />
         </figure>
-      </div>
-      <div id="title" class="">
-        <h2 class="text-3xl font-bold"><%= @event.title %></h2>
-        <div id="datetime">
-          <span role="img">📅</span> <%= @event.datetime %> (<%= @event.duration %> hour)
+        <div class="card-body">
+          <article class="prose-base px-8">
+            <h2 class="card-title my-0"><%= @event.title %></h2>
+            <div id="datetime">
+              <span role="img">📅</span> <%= @event.datetime %> (<%= @event.duration %> hour)
+            </div>
+            <div id="location"><span role="img">📍</span> <%= @event.location %></div>
+            <div id="capacity"><span role="img">✌🏼</span> <%= @event.capacity %></div>
+            <%= if Decimal.to_integer(@event.fee) > 0 do %>
+              <div id="fee"><span role="img">💸</span> <%= @event.fee %></div>
+            <% end %>
+            <p><%= @event.description %></p>
+          </article>
+          <div class="card-actions justify-end">
+            <.link navigate={~p"/events/#{@event.id}/rsvp"} class="btn btn-primary">RSVP</.link>
+            <.link navigate="/" class="btn">Back</.link>
+          </div>
         </div>
-        <div id="location"><span role="img">📍</span> <%= @event.location %></div>
-        <div id="capacity"><span role="img">✌🏼</span> <%= @event.capacity %></div>
-        <%= if Decimal.to_integer(@event.fee) > 0 do %>
-          <div id="fee"><span role="img">💸</span> <%= @event.fee %></div>
-        <% end %>
-        <p><%= @event.description %></p>
-      </div>
-      <div id="actions" class="">
-        <.link navigate={~p"/events/#{@event.id}/rsvp"} class="btn btn-primary">RSVP</.link>
-        <.link navigate="/" class="btn">Back</.link>
       </div>
     </div>
     """

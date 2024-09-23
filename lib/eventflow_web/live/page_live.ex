@@ -12,6 +12,7 @@ defmodule EventflowWeb.PageLive do
     {:ok, socket}
   end
 
+  @impl true
   def render(assigns) do
     ~H"""
     <div class="hero bg-base-200 rounded-xl mb-6">
