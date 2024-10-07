@@ -70,6 +70,8 @@ defmodule EventflowWeb.Router do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
 
+      live "/events/:event_id/rsvp", EventRsvpLive
+
       live "/admin/events", EventLive.Index, :index
       live "/admin/events/new", EventLive.Index, :new
       live "/admin/events/:id/edit", EventLive.Index, :edit

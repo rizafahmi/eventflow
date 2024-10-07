@@ -15,15 +15,27 @@ defmodule EventflowWeb.EventRsvpLive do
 
   @impl true
   def handle_event("rsvp", %{"event_id" => event_id}, socket) do
-    event = Eventflow.Events.get_event!(event_id)
+    params = %{
+      event_id: event_id,
+      user_id: socket.assigns.current_user.id
+    }
 
-    socket =
-      socket
-      |> put_flash(:info, "Thanks for your RSVP!")
-      |> update(:status, fn _ -> :rsvped end)
+    case Eventflow.Commands.create_rsvp(params) do
+      {:ok, rsvp} ->
+        socket =
+          socket
+          |> put_flash(:info, "Thanks for your RSVP!")
+          |> update(:status, fn _ -> :rsvped end)
 
-    dbg(socket)
-    {:noreply, socket}
+        {:noreply, socket}
+
+      {:error, changeset} ->
+        socket =
+          socket
+          |> put_flash(:error, "Cannot RSVP. Try again.")
+
+        {:noreply, assign(socket, changeset: changeset)}
+    end
   end
 
   @impl true

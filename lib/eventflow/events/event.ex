@@ -22,6 +22,7 @@ defmodule Eventflow.Events.Event do
     field :title, :string
 
     belongs_to :user, Eventflow.Users.User
+    many_to_many :users, Eventflow.Users.User, join_through: Eventflow.Events.Rsvp
 
     timestamps(type: :utc_datetime)
   end
