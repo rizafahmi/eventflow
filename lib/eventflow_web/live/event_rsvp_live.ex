@@ -4,11 +4,20 @@ defmodule EventflowWeb.EventRsvpLive do
   @impl true
   def mount(params, _session, socket) do
     event = Eventflow.Events.get_event!(params["event_id"])
+    user = socket.assigns.current_user
 
     socket =
-      socket
-      |> assign(:event, event)
-      |> assign(:status, :rsvping)
+      case Eventflow.Commands.get_rsvp(user.id, event.id) do
+        %{user: _user_id, event: _event_id} ->
+          socket
+          |> assign(:event, event)
+          |> assign(:status, :rsvped)
+
+        nil ->
+          socket
+          |> assign(:event, event)
+          |> assign(:status, :rsvping)
+      end
 
     {:ok, socket}
   end
@@ -21,7 +30,7 @@ defmodule EventflowWeb.EventRsvpLive do
     }
 
     case Eventflow.Commands.create_rsvp(params) do
-      {:ok, rsvp} ->
+      {:ok, _rsvp} ->
         socket =
           socket
           |> put_flash(:info, "Thanks for your RSVP!")
