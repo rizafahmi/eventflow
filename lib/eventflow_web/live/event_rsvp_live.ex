@@ -49,7 +49,7 @@ defmodule EventflowWeb.EventRsvpLive do
         <div class="card-body">
           <h2 class="card-title"><%= @event.title %></h2>
           <div id="datetime">
-            <span role="img">📅</span> <%= @event.datetime %> (<%= @event.duration %> hour)
+            <span role="img">📅</span> <%= Calendar.strftime(@event.datetime, "%A, %d %b %Y, %H:%M") %> (<%= @event.duration %> hour)
           </div>
           <div id="location"><span role="img">📍</span> <%= @event.location %></div>
           <div id="capacity"><span role="img">✌🏼</span> <%= @event.capacity %></div>
