@@ -27,6 +27,7 @@ https://www.tldraw.com/ro/R9khxSVt2EanAEf4y9x0O?v=-40,-558,1512,858&p=page
   - [x] Event yang sudah expired tidak perlu ditampilkan
 - [x] status is enum [:draft, :pre_event, :on_event, :finished_event, :published], default is :pre_event
 - [x] Design detail event page
+- [x] Humanize dateime
 - [x] RSVP page
   - [x] Setup many-to-many relationship
   - [x] Insert data to `events_rsvp` table
