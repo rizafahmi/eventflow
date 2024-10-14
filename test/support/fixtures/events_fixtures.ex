@@ -3,11 +3,14 @@ defmodule Eventflow.EventsFixtures do
   This module defines test helpers for creating
   entities via the `Eventflow.Events` context.
   """
+  import Eventflow.UsersFixtures
 
   @doc """
   Generate a event.
   """
   def event_fixture(attrs \\ %{}) do
+    user = user_fixture()
+
     {:ok, event} =
       attrs
       |> Enum.into(%{
@@ -15,15 +18,16 @@ defmodule Eventflow.EventsFixtures do
         datetime: ~N[2024-08-01 14:16:00],
         description: "some description",
         duration: 42,
-        fee: "120.5",
+        fee: "0",
         is_offline: true,
         location: "some location",
         published_at: ~N[2024-08-01 14:16:00],
         rsvp: true,
-        status: "some status",
+        status: "published",
         tags: "some tags",
         thumbnail: "some thumbnail",
-        title: "some title"
+        title: "some title",
+        user_id: user.id
       })
       |> Eventflow.Events.create_event()
 
