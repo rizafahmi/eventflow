@@ -3,7 +3,7 @@ defmodule EventflowWeb.EventRsvpLive do
 
   @impl true
   def mount(params, _session, socket) do
-    event = Eventflow.Events.get_event!(params["event_id"])
+    event = Eventflow.Events.get_event_by_slug!(params["event_slug"])
     user = socket.assigns.current_user
 
     socket =
@@ -23,9 +23,11 @@ defmodule EventflowWeb.EventRsvpLive do
   end
 
   @impl true
-  def handle_event("rsvp", %{"event_id" => event_id}, socket) do
+  def handle_event("rsvp", %{"event_slug" => event_slug} = params, socket) do
+    event = Eventflow.Events.get_event_by_slug!(event_slug)
+
     params = %{
-      event_id: event_id,
+      event_id: event.id,
       user_id: socket.assigns.current_user.id
     }
 
@@ -102,10 +104,10 @@ defmodule EventflowWeb.EventRsvpLive do
                 Share
               </button>
             <% else %>
-              <button phx-click="rsvp" phx-value-event_id={@event.id} class="btn btn-primary">
+              <button phx-click="rsvp" phx-value-event_slug={@event.slug} class="btn btn-primary">
                 RSVP
               </button>
-              <.link navigate={~p"/events/#{@event.id}"} class="btn btn-ghost">
+              <.link navigate={~p"/events/#{@event.slug}"} class="btn btn-ghost">
                 No, I changed my mind
               </.link>
             <% end %>
