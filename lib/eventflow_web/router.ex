@@ -21,7 +21,7 @@ defmodule EventflowWeb.Router do
     pipe_through :browser
 
     live "/", PageLive
-    live "/events/:event_id", EventDetailLive
+    live "/events/:event_slug", EventDetailLive
   end
 
   # Other scopes may use custom stacks.
@@ -70,7 +70,7 @@ defmodule EventflowWeb.Router do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
 
-      live "/events/:event_id/rsvp", EventRsvpLive
+      live "/events/:event_slug/rsvp", EventRsvpLive
 
       live "/admin/events", EventLive.Index, :index
       live "/admin/events/new", EventLive.Index, :new

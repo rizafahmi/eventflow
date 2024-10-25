@@ -77,15 +77,15 @@ defmodule EventflowWeb.EventLive.FormComponent do
   end
 
   def handle_event("save", %{"event" => event_params}, socket) do
-    case socket.assigns.event.user_id do
-      nil ->
-        ^event_params =
+    params =
+      case socket.assigns.event.user_id do
+        nil ->
           event_params
           |> Map.put("user_id", socket.assigns.current_user.id)
 
-      _ ->
-        event_params
-    end
+        _ ->
+          event_params
+      end
 
     uploaded_files =
       consume_uploaded_entries(socket, :poster, fn %{path: path}, entry ->
@@ -103,7 +103,7 @@ defmodule EventflowWeb.EventLive.FormComponent do
       socket
       |> update(:uploaded_files, &(&1 ++ uploaded_files))
 
-    save_event(socket, socket.assigns.action, event_params)
+    save_event(socket, socket.assigns.action, params)
   end
 
   defp save_event(socket, :edit, event_params) do
@@ -129,6 +129,7 @@ defmodule EventflowWeb.EventLive.FormComponent do
 
   defp save_event(socket, :new, event_params) do
     params = Map.put(event_params, "thumbnail", hd(socket.assigns.uploaded_files))
+    dbg(params)
 
     case Events.create_event(params) do
       {:ok, event} ->

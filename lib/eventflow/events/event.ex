@@ -12,6 +12,7 @@ defmodule Eventflow.Events.Event do
     field :location, :string
     field :published_at, :naive_datetime
     field :rsvp, :boolean, default: false
+    field :slug, :string, default: ""
 
     field :status, Ecto.Enum,
       values: [:draft, :pre_event, :on_event, :finished_event, :published],
@@ -44,6 +45,7 @@ defmodule Eventflow.Events.Event do
       :thumbnail,
       :published_at,
       :rsvp,
+      :slug,
       :user_id
     ])
     |> validate_required([
@@ -61,5 +63,22 @@ defmodule Eventflow.Events.Event do
       :user_id
     ])
     |> validate_length(:description, min: 10, max: 4000)
+    |> generate_slug()
+  end
+
+  defp generate_slug(changeset) do
+    case get_change(changeset, :title) do
+      nil ->
+        changeset
+
+      title ->
+        dbg(title)
+
+        put_change(
+          changeset,
+          :slug,
+          String.downcase(title) |> String.slice(0, 15) |> String.replace(~r/\s+/, "-")
+        )
+    end
   end
 end

@@ -2,8 +2,8 @@ defmodule EventflowWeb.EventDetailLive do
   use EventflowWeb, :live_view
 
   @impl true
-  def mount(%{"event_id" => event_id}, _session, socket) do
-    event = Eventflow.Events.get_event!(String.to_integer(event_id))
+  def mount(%{"event_slug" => event_slug}, _session, socket) do
+    event = Eventflow.Events.get_event_by_slug!(event_slug)
 
     socket =
       socket
@@ -34,7 +34,7 @@ defmodule EventflowWeb.EventDetailLive do
             <p><%= @event.description %></p>
           </article>
           <div class="card-actions justify-end">
-            <.link navigate={~p"/events/#{@event.id}/rsvp"} class="btn btn-primary">RSVP</.link>
+            <.link navigate={~p"/events/#{@event.slug}/rsvp"} class="btn btn-primary">RSVP</.link>
             <.link navigate="/" class="btn">Back</.link>
           </div>
         </div>

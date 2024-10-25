@@ -49,6 +49,10 @@ defmodule Eventflow.Events do
   """
   def get_event!(id), do: Repo.get!(Event, id)
 
+  def get_event_by_slug!(slug) do
+    Repo.get_by(Event, slug: slug)
+  end
+
   @doc """
   Creates a event.
 
