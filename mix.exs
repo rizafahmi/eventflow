@@ -61,7 +61,8 @@ defmodule Eventflow.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
-      {:mix_test_watch, "~> 1.0", only: [:dev, :test]}
+      {:mix_test_watch, "~> 1.0", only: [:dev, :test]},
+      {:assent, "~> 0.2.10"}
     ]
   end
 

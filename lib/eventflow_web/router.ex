@@ -2,6 +2,7 @@ defmodule EventflowWeb.Router do
   use EventflowWeb, :router
 
   import EventflowWeb.UserAuth
+  import EventflowWeb.GithubAuth
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -22,6 +23,13 @@ defmodule EventflowWeb.Router do
 
     live "/", PageLive
     live "/events/:event_slug", EventDetailLive
+  end
+
+  scope "/auth/github", EventflowWeb do
+    pipe_through :browser
+
+    get "/", GithubAuthController, :request
+    get "/callback", GithubAuthController, :callback
   end
 
   # Other scopes may use custom stacks.
